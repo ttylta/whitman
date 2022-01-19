@@ -5,6 +5,7 @@ use html_minifier::HTMLMinifier;
 use whitman::constants::VALID_ACTIONS;
 use whitman::state::State;
 
+use serde_json::json;
 use handlebars::{Handlebars, Helper, Context, RenderContext, Output, RenderError};
 
 fn file_href(
@@ -73,6 +74,11 @@ fn main() -> Result<(), Box<dyn Error>> {
             "tree_render",
             &partial, 
         )?;
+
+        println!("{}\n\n", json!(&outline));
+
+        println!("{}", record.file_name);
+        println!("{}", record.path.as_os_str().to_str().unwrap());
         
         let base_path = record.path.clone();
         let prefixless = base_path.strip_prefix(&state.dir)?;

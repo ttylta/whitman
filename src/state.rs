@@ -4,7 +4,7 @@ use std::{fmt, path::Path};
 use std::path::PathBuf;
 use std::error::Error;
 
-use orgize::Org;
+use orgize::{Org, ParseConfig};
 use same_file::is_same_file;
 
 use crate::config::{Env, Config};
@@ -189,8 +189,11 @@ impl State<'_> {
                continue;
            }
 
-           let org = Org::parse_string(
+           let org = Org::parse_string_custom(
                 f.raw,
+                &ParseConfig {
+                    todo_keywords: (vec!["TODO".to_string(), "DONE".to_string(), "FAILED".to_string(), "DOING".to_string()], vec![]),
+                },
             );
 
             let mut template_name: String = String::new();
