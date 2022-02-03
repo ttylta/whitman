@@ -88,7 +88,9 @@ fn main() -> Result<(), Box<dyn Error>> {
         target_path.set_extension("html");
 
         let raw_html = reg.render_template(&contents, &outline)?;
-        minifier.digest(&raw_html)?;
+        // Temporarily disabling minifaction because it's stripping out characters.
+        // FIXME: Replace minifier with something better
+        // minifier.digest(&raw_html)?;
 
         fs::write(&target_path, minifier.get_html()).expect("Unable to write file");
 
