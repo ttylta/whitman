@@ -90,7 +90,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         let raw_html = reg.render_template(&contents, &outline)?;
         // Temporarily disabling minifaction because it's stripping out characters.
         // FIXME: Replace minifier with something better
-        // minifier.digest(&raw_html)?;
+        minifier.digest(&raw_html)?;
 
         fs::write(&target_path, minifier.get_html()).expect("Unable to write file");
 
